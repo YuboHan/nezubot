@@ -1,0 +1,82 @@
+[
+    {
+        "name": [
+            "thirdworlddemocracy",
+            "Third World Democracy"
+        ],
+        "roster": {
+            "top": [
+                "doomlion",
+                "Doom Lion"
+            ],
+            "jungle": [
+                "skralzarek",
+                "SK Ral Zarek"
+            ],
+            "mid": [
+                "jargonaut",
+                "Jargonaut"
+            ],
+            "adc": [
+                "clgparadoxical",
+                "CLG Paradoxical"
+            ],
+            "support": [
+                "wileyl",
+                "WileyL"
+            ],
+            "subs": [
+                [
+                    "deadbearmat",
+                    "deadbearmat"
+                ],
+                [
+                    "drquantum",
+                    "Dr Quantum"
+                ]
+            ]
+        }
+    },
+    {
+        "name": [
+            "pursuitgaming",
+            "Pursuit Gaming"
+        ],
+        "roster": {
+            "top": [
+                "vermìllìon",
+                "Vermìllìon"
+            ],
+            "jungle": [
+                "canadianchamp",
+                "CanadianChamp"
+            ],
+            "mid": [
+                "ting1",
+                "Ting1"
+            ],
+            "adc": [
+                "spârky",
+                "Spârky"
+            ],
+            "support": [
+                "beezz",
+                "Beezz"
+            ],
+            "subs": [
+                [
+                    "thesquid210",
+                    "TheSquid210"
+                ],
+                [
+                    "lzerogravityl",
+                    "l ZeroGravity l"
+                ],
+                [
+                    "gratin",
+                    "Gratin"
+                ]
+            ]
+        }
+    }
+]
