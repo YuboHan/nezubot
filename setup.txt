@@ -1,0 +1,4 @@
+# Initial setup
+# Tutorial found at https://www.devdungeon.com/content/javascript-discord-bot-tutorial
+
+npm install discord.js
