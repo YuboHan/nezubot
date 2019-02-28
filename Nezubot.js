@@ -1,4 +1,5 @@
 const discord = require('discord.js')                   // Acquire Discord API
+const private_bot_token = require('./src/private.js')
 
 // Local libraries
 //const utils = require('./src/utils.js')                 // Utility functions
@@ -44,5 +45,4 @@ client.on('message', receivedMessage => {
 })
 
 // Connect bot
-bot_secret_token = "NTUwNDUzNzgyMTk1MjA4MjMz.D1ipsQ.v2QKi90y11_WmMPG1QJFX5JJg0Y"
-client.login(bot_secret_token)
+client.login(private_bot_token)
