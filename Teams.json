@@ -1,143 +1,35 @@
 [
     {
-        "teamId": "pursuitgaming",
-        "teamName": "Pursuit Gaming",
+        "teamId": "team1",
+        "teamName": "Team1",
         "roster": {
             "top": {
-                "id": "vermìllìon",
-                "summonerName": "Vermìllìon",
-                "opGG": "https://na.op.gg/summoner/userName=vermìllìon"
+                "id": "player1",
+                "summonerName": "player1",
+                "opGG": "https://na.op.gg/summoner/userName=player1"
             },
             "jungle": {
-                "id": "canadianchamp",
-                "summonerName": "CanadianChamp",
-                "opGG": "https://na.op.gg/summoner/userName=canadianchamp"
+                "id": "null",
+                "summonerName": "null",
+                "opGG": "null"
             },
             "mid": {
-                "id": "ting1",
-                "summonerName": "Ting1",
-                "opGG": "https://na.op.gg/summoner/userName=ting1"
+                "id": "null",
+                "summonerName": "null",
+                "opGG": "null"
             },
             "adc": {
-                "id": "spârky",
-                "summonerName": "Spârky",
-                "opGG": "https://na.op.gg/summoner/userName=spârky"
+                "id": "null",
+                "summonerName": "null",
+                "opGG": "null"
             },
             "support": {
-                "id": "me",
-                "summonerName": "Me",
-                "opGG": "https://na.op.gg/summoner/userName=me"
-            },
-            "subs": [
-                {
-                    "id": "thesquid210",
-                    "summonerName": "TheSquid210",
-                    "opGG": "https://na.op.gg/summoner/userName=thesquid210"
-                },
-                {
-                    "id": "lzerogravityl",
-                    "summonerName": "l ZeroGravity l",
-                    "opGG": "https://na.op.gg/summoner/userName=lzerogravityl"
-                },
-                {
-                    "id": "gratin",
-                    "summonerName": "Gratin",
-                    "opGG": "https://na.op.gg/summoner/userName=gratin"
-                }
-            ]
-        },
-        "teamOpGG": "https://na.op.gg/multi/query=vermìllìon%2Ccanadianchamp%2Cting1%2Cspârky%2Cme%2Cthesquid210%2Clzerogravityl%2Cgratin"
-    },
-    {
-        "teamId": "activerush",
-        "teamName": "Active Rush",
-        "roster": {
-            "top": {
-                "id": "antuk",
-                "summonerName": "Antuk",
-                "opGG": "https://na.op.gg/summoner/userName=antuk"
-            },
-            "jungle": {
-                "id": "gimpythefirst",
-                "summonerName": "GimpyTheFirst",
-                "opGG": "https://na.op.gg/summoner/userName=gimpythefirst"
-            },
-            "mid": {
-                "id": "rutledgeisbeast",
-                "summonerName": "Rutledgeisbeast",
-                "opGG": "https://na.op.gg/summoner/userName=rutledgeisbeast"
-            },
-            "adc": {
-                "id": "villaininglåsses",
-                "summonerName": "VillainInGlåsses",
-                "opGG": "https://na.op.gg/summoner/userName=villaininglåsses"
-            },
-            "support": {
-                "id": "daddyzilean",
-                "summonerName": "Daddy Zilean",
-                "opGG": "https://na.op.gg/summoner/userName=daddyzilean"
-            },
-            "subs": [
-                {
-                    "id": "deathworm98",
-                    "summonerName": "Deathworm98",
-                    "opGG": "https://na.op.gg/summoner/userName=deathworm98"
-                },
-                {
-                    "id": "papaskips",
-                    "summonerName": "Papa Skips",
-                    "opGG": "https://na.op.gg/summoner/userName=papaskips"
-                },
-                {
-                    "id": "donthmu",
-                    "summonerName": "Dont HMU",
-                    "opGG": "https://na.op.gg/summoner/userName=donthmu"
-                },
-                {
-                    "id": "mythics",
-                    "summonerName": "Mythics",
-                    "opGG": "https://na.op.gg/summoner/userName=mythics"
-                },
-                {
-                    "id": "astrosnow",
-                    "summonerName": "astrosnow",
-                    "opGG": "https://na.op.gg/summoner/userName=astrosnow"
-                }
-            ]
-        },
-        "teamOpGG": "https://na.op.gg/multi/query=antuk%2Cgimpythefirst%2Crutledgeisbeast%2Cvillaininglåsses%2Cdaddyzilean%2Cdeathworm98%2Cpapaskips%2Cdonthmu%2Cmythics%2Castrosnow"
-    },
-    {
-        "teamId": "resurrectedgaming",
-        "teamName": "Resurrected Gaming",
-        "roster": {
-            "top": {
-                "id": "acarcion",
-                "summonerName": "Acarcion",
-                "opGG": "https://na.op.gg/summoner/userName=acarcion"
-            },
-            "jungle": {
-                "id": "bladedthesis",
-                "summonerName": "Bladed Thesis",
-                "opGG": "https://na.op.gg/summoner/userName=bladedthesis"
-            },
-            "mid": {
-                "id": "shewas14",
-                "summonerName": "Shewas14",
-                "opGG": "https://na.op.gg/summoner/userName=shewas14"
-            },
-            "adc": {
-                "id": "dotenark",
-                "summonerName": "Dotenark",
-                "opGG": "https://na.op.gg/summoner/userName=dotenark"
-            },
-            "support": {
-                "id": "suntheprophet",
-                "summonerName": "SunTheProphet",
-                "opGG": "https://na.op.gg/summoner/userName=suntheprophet"
+                "id": "null",
+                "summonerName": "null",
+                "opGG": "null"
             },
             "subs": []
         },
-        "teamOpGG": "https://na.op.gg/multi/query=acarcion%2Cbladedthesis%2Cshewas14%2Cdotenark%2Csuntheprophet"
+        "teamOpGG": "https://na.op.gg/multi/query=player1"
     }
 ]

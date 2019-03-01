@@ -1,5 +1,3 @@
-"use strict"
-
 class Player {
     // Empty constructor
     constructor() {
