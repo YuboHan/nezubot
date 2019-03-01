@@ -1,8 +1,11 @@
 const {Player, Roster, Team} = require('./Objects.js')
 const jsonHelper = require('./JsonHelper.js')
+const riotHelper = require('./RiotHelper.js')
+const discord = require('discord.js')   
 const fs = require('fs')
 
-var teamsJsonName = "Teams.json"
+var teamsJsonName = "./Teams.json"
+var resultsCsvPath = "./results.csv"
 
 module.exports = {
     // Parse user input
@@ -56,6 +59,12 @@ function parseCommand(msg, channel) {
         case "reset-teams":
             var emptyArray = []
             jsonHelper.writeJsonToFile(emptyArray, teamsJsonName)
+            break
+        case "get-game-stats":
+            console.log("getting stats")
+            riotHelper.getGameStats(splitCommand[1], channel, resultsCsvPath)
+            const localFileAttachment = new discord.Attachment(resultsCsvPath)
+            channel.send(localFileAttachment)
             break
         case "show-teams":
             var ret = ""
