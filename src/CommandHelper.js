@@ -44,7 +44,7 @@ function parseCommand(msg, channel) {
             break
         case 'get-game-stats':
             // TODO: Error handling
-            riotHelper.getGameStats(splitCommand[1], channel, resultsCsvPath)
+            riotHelper.statsToCsv(splitCommand[1], channel, resultsCsvPath)
             const localFileAttachment = new discord.Attachment(resultsCsvPath)
             channel.send(localFileAttachment)
             break
