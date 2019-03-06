@@ -47,7 +47,7 @@ class JsonHelper {
 			}
 			else {
 				for (var i in team.roster["subs"]) {
-					ret += "\nSubs: " + team.roster["subs"][i].summonerName + " (" + team.roster["subs"][i].opGG + ")"
+					ret += "\nSub: " + team.roster["subs"][i].summonerName + " (" + team.roster["subs"][i].opGG + ")"
 				}
 			}
 		});

@@ -83,6 +83,7 @@ class Roster {
                 break
             case "sub":
             case "substitute":
+            case 'subs':
                 var p = new Player()
                 p.populate(formattedName)
                 this.subs.push(p)

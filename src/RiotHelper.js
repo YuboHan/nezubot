@@ -119,7 +119,7 @@ function teamStatsToString(team, gameDuration) {
 	else {
 		ret += 'Red side'
 	}
-	if (team.win = true) {
+	if (team.win == true) {
 		ret += ' (winner)\n'
 	}
 	else {

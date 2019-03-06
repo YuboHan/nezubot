@@ -39,7 +39,9 @@ client.on('ready', () => {
 client.on('message', receivedMessage => {
     // Prevent bot from responding to its own comments
     if (receivedMessage.author == client.user)
+    {
         return
+    }
 
     commandHelper.parseMessage(receivedMessage)
 })
