@@ -1,5 +1,5 @@
 const discord = require('discord.js')                   // Acquire Discord API
-const keys = require('./src/private.js')
+const keys = require('./src/private/tokens.js')
 
 // Local libraries
 //const utils = require('./src/utils.js')                 // Utility functions

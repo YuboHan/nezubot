@@ -1,4 +1,4 @@
-const keys = require('./private.js')
+const keys = require('./private/tokens.js')
 const jsonHelper = require('./JsonHelper.js')
 const https = require('https')
 const fs = require('fs')
