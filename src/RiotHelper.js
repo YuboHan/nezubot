@@ -57,12 +57,18 @@ module.exports = {
             }
         }
 
+        switch(key)
+        {
+            case 141: return 'Kayn'
+            case 517: return 'Sylas'
+        }
+
         if (key == 517) {
             return "Sylas"
         }
 
         console.log("Warning: Cannot find champion ID: " + key)
-        return 'UnknownChampion'
+        return 'UnknownChampion(' + key + ')'
     }
 }
 
