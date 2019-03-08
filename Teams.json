@@ -1,35 +1,105 @@
 [
     {
-        "teamId": "team1",
-        "teamName": "Team1",
+        "teamId": "classicesportsretro",
+        "teamName": "Classic Esports Retro",
         "roster": {
             "top": {
-                "id": "player1",
-                "summonerName": "player1",
-                "opGG": "https://na.op.gg/summoner/userName=player1"
+                "id": "densoft",
+                "summonerName": "Densoft",
+                "opGG": "https://na.op.gg/summoner/userName=densoft"
             },
             "jungle": {
-                "id": "null",
-                "summonerName": "null",
-                "opGG": "null"
+                "id": "longschlongphd",
+                "summonerName": "Long Schlong PhD",
+                "opGG": "https://na.op.gg/summoner/userName=longschlongphd"
             },
             "mid": {
-                "id": "null",
-                "summonerName": "null",
-                "opGG": "null"
+                "id": "silverrookie",
+                "summonerName": "Silver Rookie",
+                "opGG": "https://na.op.gg/summoner/userName=silverrookie"
             },
             "adc": {
-                "id": "null",
-                "summonerName": "null",
-                "opGG": "null"
+                "id": "scømm",
+                "summonerName": "SCømm",
+                "opGG": "https://na.op.gg/summoner/userName=scømm"
             },
             "support": {
-                "id": "null",
-                "summonerName": "null",
-                "opGG": "null"
+                "id": "popsfrycook",
+                "summonerName": "Pops Fry Cook",
+                "opGG": "https://na.op.gg/summoner/userName=popsfrycook"
             },
-            "subs": []
+            "subs": [
+                {
+                    "id": "minxlynx",
+                    "summonerName": "MInx Lynx",
+                    "opGG": "https://na.op.gg/summoner/userName=minxlynx"
+                },
+                {
+                    "id": "vjandro",
+                    "summonerName": "V Jandro",
+                    "opGG": "https://na.op.gg/summoner/userName=vjandro"
+                },
+                {
+                    "id": "babychovy",
+                    "summonerName": "Baby Chovy",
+                    "opGG": "https://na.op.gg/summoner/userName=babychovy"
+                }
+            ]
         },
-        "teamOpGG": "https://na.op.gg/multi/query=player1"
+        "teamOpGG": "https://na.op.gg/multi/query=densoft%2Clongschlongphd%2Csilverrookie%2Cscømm%2Cpopsfrycook%2Cminxlynx%2Cvjandro%2Cbabychovy"
+    },
+    {
+        "teamId": "activerush",
+        "teamName": "Active Rush",
+        "roster": {
+            "top": {
+                "id": "deathworm98",
+                "summonerName": "Deathworm98",
+                "opGG": "https://na.op.gg/summoner/userName=deathworm98"
+            },
+            "jungle": {
+                "id": "gimpythefirst",
+                "summonerName": "GimpyTheFirst",
+                "opGG": "https://na.op.gg/summoner/userName=gimpythefirst"
+            },
+            "mid": {
+                "id": "rutledgeisbeast",
+                "summonerName": "Rutledgeisbeast",
+                "opGG": "https://na.op.gg/summoner/userName=rutledgeisbeast"
+            },
+            "adc": {
+                "id": "villaininglåsses",
+                "summonerName": "VillainInGlåsses",
+                "opGG": "https://na.op.gg/summoner/userName=villaininglåsses"
+            },
+            "support": {
+                "id": "daddyzilean",
+                "summonerName": "Daddy Zilean",
+                "opGG": "https://na.op.gg/summoner/userName=daddyzilean"
+            },
+            "subs": [
+                {
+                    "id": "antuk",
+                    "summonerName": "Antuk",
+                    "opGG": "https://na.op.gg/summoner/userName=antuk"
+                },
+                {
+                    "id": "papaskips",
+                    "summonerName": "Papa Skips",
+                    "opGG": "https://na.op.gg/summoner/userName=papaskips"
+                },
+                {
+                    "id": "donthmu",
+                    "summonerName": "Dont HMU",
+                    "opGG": "https://na.op.gg/summoner/userName=donthmu"
+                },
+                {
+                    "id": "mythics",
+                    "summonerName": "Mythics",
+                    "opGG": "https://na.op.gg/summoner/userName=mythics"
+                }
+            ]
+        },
+        "teamOpGG": "https://na.op.gg/multi/query=deathworm98%2Cgimpythefirst%2Crutledgeisbeast%2Cvillaininglåsses%2Cdaddyzilean%2Cantuk%2Cpapaskips%2Cdonthmu%2Cmythics"
     }
 ]
