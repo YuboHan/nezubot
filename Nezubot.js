@@ -1,49 +1,58 @@
-const discord = require('discord.js')                   // Acquire Discord API
-const keys = require('./src/private/tokens.js')
+const discord       = require('discord.js')              // Acquire Discord API
+const keys          = require('./src/private/tokens.js') // Get private Discord bot token
+const commandParser = require('./src/CommandParser.js')  // Get library to parse messages to bot
 
-// Local libraries
-//const utils = require('./src/utils.js')                 // Utility functions
-const commandHelper = require('./src/CommandHelper.js') // Function definitions for parsing discord user instructions
-
-// Discord client handle. All utility functions will get passed this instance.
+// Discord client handle. All utility functions will get passed this instance
 const client = new discord.Client()
 
-// Bot comes online.
-client.on('ready', () => {
+// When the bot comes online
+client.on('ready', () => 
+{
     // List all servers bot is connected to
-    console.log("Connected as " + client.user.tag)
-    console.log("Servers:")
+    console.log('Connected as ' + client.user.tag)
+    console.log('Servers: ')
 
-    // Find channel named "general"
-    // TODO: Make this more robust with matching guild name as well
-    var channelID
-    client.guilds.forEach(guild => {
-        console.log(" - " + guild.name)
+    let CID
+    client.guilds.forEach(guild =>
+    {
+        console.log(' - ' + guild.name)
 
         // List all channels
-        guild.channels.forEach((channel) => {
+        guild.channels.forEach(channel =>
+        {
             console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
         })
 
-        channelID = guild.channels.find(channel => channel.name === "general").id
+        CID = guild.channels.find(channel => channel.name ==='general').id
     })
 
-    if (channelID == undefined)
-        console.log("WARNING: No channel called \"general\" found.")
-
-    var generalChannel = client.channels.get(channelID)
-    generalChannel.send("Nezubot has connected, come say hi!")
-})
-
-// Bot receives a message
-client.on('message', receivedMessage => {
-    // Prevent bot from responding to its own comments
-    if (receivedMessage.author == client.user)
+    if (CID == undefined)
     {
-        return
+        console.log('Warning: No channel named \'general\' found')
     }
 
-    commandHelper.parseMessage(receivedMessage)
+    let generalChannel = client.channels.get(CID)
+    generalChannel.send('Nezubot has connected, come say hi!')
+})
+
+// Whenever bot receives a message
+client.on('message', receivedMessage =>
+{
+    // Prevent bot from responding to its own comments
+    if (receivedMessage.author != client.user)
+    {
+        commandParser.parseMessage(receivedMessage)
+        // try
+        // {
+        //     commandParser.parseMessage(receivedMessage)
+        // }
+        // catch(err)
+        // {
+        //     let ret = 'Error parsing message:\n'
+        //     ret += receivedMessage.content
+        //     receivedMessage.channel.send(ret)
+        // }
+    }
 })
 
 // Connect bot

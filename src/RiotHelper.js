@@ -1,53 +1,51 @@
-const keys = require('./private/tokens.js')
-const jsonHelper = require('./JsonHelper.js')
 const https = require('https')
-const fs = require('fs')
+const keys = require('./private/tokens.js')
+const fileHelper = require('./FileHelper.js')
 
-const championDbLink = './RiotDatabase/champion.json'
 const riotApiPath = 'https://na1.api.riotgames.com/'
 
-var champions = jsonHelper.readJsonFromFile(championDbLink)
+var champions = fileHelper.readJsonFromFile('./RiotDatabase/champion.json')
 
 module.exports = {
-    statsToCsv : function(matchLink, channel, csvName) {
-        var strSplit = matchLink.split('/#match-details/')[1].split('/')
-        var region = strSplit[0]
-        var gameId = strSplit[1]
+    /**
+     * Get the game JSON from Riot API
+     * param[in] URL(string)          Online match history URL
+     * param[out] callback(function)  Callback function. Parameter accepts team JSON
+     */
+    getGameJson : function(URL, callback)
+    {
+        let gameId = _getGameIdFromURL(URL)
+        let httpsCall = riotApiPath + 'lol/match/v4/matches/' 
+                                    + gameId + '?api_key=' 
+                                    + keys.private_riot_token
 
-        https.get(riotApiPath + 'lol/match/v4/matches/' + gameId + '?api_key=' + keys.private_riot_token, response => {
+        // Make the https call
+        https.get(httpsCall, response =>
+        {
             let data = ''
-
-            response.on('data', chunk => {
+            response.on('data', chunk =>
+            {
                 data += chunk
             })
 
-            response.on('end', chunk => {
-                console.log('All chunks received!')
-                outputStatsToCsv(JSON.parse(data), channel, csvName)
+            response.on('end', chunk =>
+            {
+                callback(JSON.parse(data))
             })
-        }).on('error', err => {
-            console.log('Error in sending http request: ' + err.message)
+        }).on('error', err =>
+        {
+            throw 'Error in sending http request: ' + err.Message
         })
     },
 
-    statsToJson : function(matchLink, callback) {
-        var strSplit = matchLink.split('/#match-details/')[1].split('/')
-        var region = strSplit[0]
-        var gameId = strSplit[1]
-
-        https.get(riotApiPath + 'lol/match/v4/matches/' + gameId + '?api_key=' + keys.private_riot_token, response => {
-            let data = ''
-
-            response.on('data', chunk => {
-                data += chunk
-            })
-
-            response.on('end', chunk => {
-                callback(JSON.parse(data))
-            })
-        }).on('error', err => {
-            console.log('Error in sending http request: ' + err.message)
-        })
+    /**
+     * Get Game ID from online match history URL
+     * param[in] URL(string)  Online match history URL
+     * return(string)         Game ID
+     */
+    getGameIdFromURL : function(URL)
+    {
+        return _getGameIdFromURL(URL)
     },
 
     getChampionNameByKey(key) {
@@ -61,6 +59,9 @@ module.exports = {
         {
             case 141: return 'Kayn'
             case 517: return 'Sylas'
+            case 518: return 'Neeko'
+            case 516: return 'Ornn'
+            case 145: return 'Kaisa'
         }
 
         if (key == 517) {
@@ -72,155 +73,19 @@ module.exports = {
     }
 }
 
-// role, player, champion, kill, death, assist, KDA, CS, CS/M, Damage, Gold, 
-// Vision Score, Kill participation, damage/min, damage/death, damage percentage, 
-// damage/100 gold, gold percentage, kill percentage, death percentage, assist percentage
+/**
+ * Get Game ID from online match history URL
+ * param[in] URL(string)  Online match history URL
+ * return(string)         Game ID
+ */
+function _getGameIdFromURL(URL)
+{
+    let strSplit = URL.split('/#match-details/')[1].split('/')
 
-// dragons, rift herald, barons, towers, inhibitors
-// drags/10, barons/10, towers/10, inhibs/10
-
-// Team totals:
-// Kills, deaths, assists, CS, CS/M (avg), Damage, gold
-
-class TeamR {
-    // @param[in] name  Name as string
-    // @param[in] win   Win as boolean
-    constructor(name, team, win) {
-        this.name = name
-        this.teamId = team.teamId
-        this.players = []
-        this.win = win
-        this.towers = team.towerKills
-        this.inhibs = team.inhibitorKills
-        this.barons = team.baronKills
-        this.dragons = team.dragonKills
-        this.heralds = team.riftHeraldKills
-
-        // Need to collect by iterating over all players
-        this.totalKills = 0
-        this.totalDeaths = 0
-        this.totalAssists = 0
-        this.totalCs = 0
-        this.totalDamage = 0
-        this.totalVisionScore = 0
-        Object.seal(this)
-    }
-}
-
-function getPlayerStatsAndUpdateTeam(playerJson, team) {
-    var player = {}
-
-    player.champion     = getChampionNameByKey(playerJson.championId)
-    player.kills        = playerJson.stats.kills
-    player.deaths       = playerJson.stats.deaths
-    player.assists      = playerJson.stats.assists
-    player.kda          = (player.kills + player.assists) / player.deaths
-    player.totalDamage  = playerJson.stats.totalDamageDealtToChampions
-    player.gold         = playerJson.stats.goldEarned
-    player.visionScore  = playerJson.stats.visionScore
-    player.controlWards = playerJson.stats.visionWardsBoughtInGame
-    player.cs           = playerJson.stats.totalMinionsKilled +
-                          playerJson.stats.neutralMinionsKilled
-
-    team.totalKills       += player.kills
-    team.totalDeaths      += player.deaths
-    team.totalAssists     += player.assists
-    team.totalCs          += player.cs
-    team.totalDamage      += player.totalDamage
-    team.totalVisionScore += player.visionScore
-
-    team.players.push(player)
-}
-
-function teamStatsToString(team, gameDuration) {
-    var ret = ''
-
-    if (team.teamId == 100) {
-        ret += 'Blue side'
-    }
-    else {
-        ret += 'Red side'
-    }
-    if (team.win == true) {
-        ret += ' (winner)\n'
-    }
-    else {
-        ret += '\n'
+    if (strSplit.length < 2)
+    {
+        throw 'Error: Match history URL is not correct.'
     }
 
-
-    ret += 'Team stats\n'
-    ret += 'Kills,' + team.totalKills + '\n'
-    ret += 'Deaths,' + team.totalDeaths + '\n'
-    ret += 'Assists,' + team.totalAssists + '\n'
-    ret += 'AverageKda,' + ((team.totalKills + team.totalAssists) / team.totalDeaths) + '\n'
-    ret += 'CS,' + team.totalCs + '\n'
-    ret += 'CS/m,' + (team.totalCs / (gameDuration / 60)) + '\n'
-    ret += 'Damage,' + team.totalDamage + '\n'
-    ret += 'Dragons,' + team.dragons + '\n'
-    ret += 'Rift Herald,' + team.heralds + '\n'
-    ret += 'Barons,' + team.barons + '\n'
-    ret += 'Towers,' + team.towers + '\n'
-    ret += 'Inhibitors,' + team.inhibs + '\n'
-
-    ret += 'Player stats\n'
-    var firstVal = true
-    for (var i in team.players[0]) {
-        if (firstVal) {
-            firstVal = false
-        }
-        else {
-            ret += ','
-        }
-
-        ret += i
-    }
-
-    ret += '\n'
-
-    for (var i in team.players) {
-        firstVal = true
-        for (var key in team.players[i]) {
-            if (firstVal) {
-                firstVal = false
-            }
-            else {
-                ret += ','
-            }
-            ret += team.players[i][key]
-        }
-        ret += '\n'
-    }
-
-    return ret
-}
-
-function outputStatsToCsv(gameJson, channel, filename) {
-    var gameDuration = gameJson.gameDuration // In seconds
-
-    var team1Win = false
-    if (gameJson.teams[0].win == "Win") {
-        team1Win = true
-    }
-
-    var team1 = new TeamR('null', gameJson.teams[0], team1Win)
-    var team2 = new TeamR('null', gameJson.teams[1], !team1Win)
-
-    // Iterate through all players to populate list
-    for (var i in gameJson.participants) {
-        if (gameJson.participants[i].teamId == team1.teamId) {
-            getPlayerStatsAndUpdateTeam(gameJson.participants[i], team1)
-        }
-        else if (gameJson.participants[i].teamId == team2.teamId) {
-            getPlayerStatsAndUpdateTeam(gameJson.participants[i], team2)
-        }
-        else {
-            throw "Error: Invalid team ID " + team1.teamId
-        }
-    }
-
-    var ret = teamStatsToString(team1, gameDuration)
-    ret += '\n' + teamStatsToString(team2, gameDuration)
-
-    fs.writeFileSync(filename, ret)
+    return strSplit[1]
 }
