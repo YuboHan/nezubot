@@ -43,11 +43,13 @@ function _tsc(row, col)
 function _setSheetSize(requests, sheetId)
 {
     let columnWidths = [
-        {start : 0,  end : 1,  pixelSize : 500},
-        {start : 1,  end : 15, pixelSize : 120},
-        {start : 15, end : 16, pixelSize : 200},
-        {start : 16, end : 30, pixelSize : 120},
-        {start : 30, end : 31, pixelSize : 500},
+        {start : 0,  end : 1,  pixelSize : 300},
+        {start : 1,  end : 2,  pixelSize : 500},
+        {start : 2,  end : 16, pixelSize : 120},
+        {start : 16, end : 17, pixelSize : 200},
+        {start : 17, end : 31, pixelSize : 120},
+        {start : 31, end : 32, pixelSize : 500},
+        {start : 32, end : 33, pixelSize : 300},
     ]
 
     requests.push(
@@ -87,36 +89,36 @@ function _setColors(requests, sheetId, ro)
 {
     // Set background colors (1 is black, 0 is white)
     let colors = [
-        [1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+        [1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
     ]
 
     let rows = []
@@ -285,19 +287,19 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         winner = gamesJson.teamNames[0]
     }
 
-    _writeCell(requests, sheetId, gamesJson.teamNames[0], ro, 0, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    _writeCell(requests, sheetId, gamesJson.teamNames[0], ro, 1, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Game Time'}, 
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : winner + ' Win'}
-    ]], ro, 7, [[true, false, true]])
-    _writeCell(requests, sheetId, 'Comparisons', ro, 15, true)
+    ]], ro, 8, [[true, false, true]])
+    _writeCell(requests, sheetId, 'Comparisons', ro, 16, true)
     _writeBlock(requests, sheetId, [[
         {'stringValue' : winner + ' Win'},
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : 'Game Time'}, 
-    ]], ro, 21, [[true, false, true]])
-    _writeCell(requests, sheetId, gamesJson.teamNames[1], ro, 30, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    ]], ro, 22, [[true, false, true]])
+    _writeCell(requests, sheetId, gamesJson.teamNames[1], ro, 31, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
 
     // Blue side
     _writeBlock(requests, sheetId, [[
@@ -311,7 +313,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Gold'},
         {'stringValue' : 'Vision Score'},
         {'stringValue' : 'Wards Placed'}
-    ]], ro + 1, 2, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 1, 3, [[true, true, true, true, true, true, true, true, true, true]])
 
     let uev = []
     for (let i = 0; i < 5; i++)
@@ -324,9 +326,9 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'numberValue' : participant.stats.kills},
             {'numberValue' : participant.stats.deaths},
             {'numberValue' : participant.stats.assists},
-            {'formulaValue' : '=('+_tsc(2+i+ro,2)+'+'+_tsc(2+i+ro,4)+')/'+_tsc(2+i+ro,3)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(2+i+ro,4)},
             {'numberValue' : participant.stats.totalMinionsKilled + participant.stats.neutralMinionsKilled},
-            {'formulaValue' : '='+_tsc(2+i+ro,6)+'/(TIMEVALUE('+_tsc(ro,8)+')*1440)'},
+            {'formulaValue' : '='+_tsc(2+i+ro,7)+'/(TIMEVALUE('+_tsc(ro,9)+')*1440)'},
             {'numberValue' : participant.stats.totalDamageDealtToChampions},
             {'numberValue' : participant.stats.goldEarned},
             {'numberValue' : participant.stats.visionScore},
@@ -335,7 +337,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         uev.push(uevRow)
     }
 
-    _writeBlock(requests, sheetId, uev, ro + 2, 0)
+    _writeBlock(requests, sheetId, uev, ro + 2, 1)
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Total Kills'},
         {'stringValue' : 'Total Deaths'},
@@ -347,20 +349,20 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Total Gold'},
         {'stringValue' : 'Total Vision Score'},
         {'stringValue' : 'Total Wards Placed'},
-    ]], ro + 7, 2, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 7, 3, [[true, true, true, true, true, true, true, true, true, true]])
 
     _writeBlock(requests, sheetId, [[
-        {'formulaValue' : '=sum('+_tsc(2+ro,2)+':'+_tsc(6+ro,2)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,3)+':'+_tsc(6+ro,3)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,4)+':'+_tsc(6+ro,4)+')'},
-        {'formulaValue' : '=('+_tsc(8+ro,2)+'+'+_tsc(8+ro,4)+')/'+_tsc(8+ro,3)},
-        {'formulaValue' : '=sum('+_tsc(2+ro,6)+':'+_tsc(6+ro,6)+')'},
-        {'formulaValue' : '=sum('+_tsc(2+ro,7)+':'+_tsc(6+ro,7)+')/5'},
-        {'formulaValue' : '=sum('+_tsc(2+ro,8)+':'+_tsc(6+ro,8)+')'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,5)+':'+_tsc(6+ro,5)+')'},
+        {'formulaValue' : '=('+_tsc(8+ro,3)+'+'+_tsc(8+ro,5)+')/'+_tsc(8+ro,4)},
+        {'formulaValue' : '=sum('+_tsc(2+ro,7)+':'+_tsc(6+ro,7)+')'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,8)+':'+_tsc(6+ro,8)+')/5'},
         {'formulaValue' : '=sum('+_tsc(2+ro,9)+':'+_tsc(6+ro,9)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,10)+':'+_tsc(6+ro,10)+')'},
-        {'formulaValue' : '=sum('+_tsc(2+ro,11)+':'+_tsc(6+ro,11)+')'}
-    ]], ro + 8, 2)
+        {'formulaValue' : '=sum('+_tsc(2+ro,11)+':'+_tsc(6+ro,11)+')'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,12)+':'+_tsc(6+ro,12)+')'}
+    ]], ro + 8, 3)
 
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Kill Participation'},
@@ -373,7 +375,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Death %'},
         {'stringValue' : 'Assist %'},
         {'stringValue' : 'Wards/Min'}
-    ]], ro + 10, 2, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 10, 3, [[true, true, true, true, true, true, true, true, true, true]])
 
     uev = []
     var numType = []
@@ -384,21 +386,21 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         let uevRow = [
             {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
             {'stringValue' : ''},
-            {'formulaValue' : '=('+_tsc(2+i+ro,2)+'+'+_tsc(2+i+ro,4)+')/'+_tsc(8+ro,2)},
-            {'formulaValue' : '='+_tsc(2+i+ro,8)+'/(TIMEVALUE('+_tsc(0+ro,8)+')*1440)'},
-            {'formulaValue' : '='+_tsc(2+i+ro,8)+'/'+_tsc(2+i+ro,3)},
-            {'formulaValue' : '='+_tsc(2+i+ro,8)+'/'+_tsc(8+ro,8)},
-            {'formulaValue' : '=('+_tsc(2+i+ro,8)+'/'+_tsc(2+i+ro,9)+')*100'},
+            {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(8+ro,4)},
+            {'formulaValue' : '='+_tsc(2+i+ro,9)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
+            {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(2+i+ro,4)},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(8+ro,9)},
-            {'formulaValue' : '='+_tsc(2+i+ro,2)+'/'+_tsc(8+ro,2)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,9)+'/'+_tsc(2+i+ro,10)+')*100'},
+            {'formulaValue' : '='+_tsc(2+i+ro,10)+'/'+_tsc(8+ro,10)},
             {'formulaValue' : '='+_tsc(2+i+ro,3)+'/'+_tsc(8+ro,3)},
             {'formulaValue' : '='+_tsc(2+i+ro,4)+'/'+_tsc(8+ro,4)},
-            {'formulaValue' : '='+_tsc(2+i+ro,11)+'/(TIMEVALUE('+_tsc(0+ro,8)+')*1440)'},
+            {'formulaValue' : '='+_tsc(2+i+ro,5)+'/'+_tsc(8+ro,5)},
+            {'formulaValue' : '='+_tsc(2+i+ro,12)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
         ]
         uev.push(uevRow)
         numType.push(['NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER'])
     }
-    _writeBlock(requests, sheetId, uev, ro + 11, 0, [], numType)
+    _writeBlock(requests, sheetId, uev, ro + 11, 1, [], numType)
 
     _writeBlock(requests, sheetId, [
         [{'stringValue' : 'Objectives'}, {'stringValue' : ''}],
@@ -408,7 +410,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         [{'stringValue' : 'Barons'}, {'numberValue' : gamesJson.stats.teams[0].baronKills}],
         [{'stringValue' : 'Towers'}, {'numberValue' : gamesJson.stats.teams[0].towerKills}],
         [{'stringValue' : 'Inhibitors'}, {'numberValue' : gamesJson.stats.teams[0].inhibitorKills}],
-    ], ro + 17, 10, [[true, false], [true, false], [true, false], [true, false], [true, false], [true, false], [true, false]])
+    ], ro + 17, 11, [[true, false], [true, false], [true, false], [true, false], [true, false], [true, false], [true, false]])
 
 
     // Red side
@@ -423,7 +425,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Assists'},
         {'stringValue' : 'Deaths'},
         {'stringValue' : 'Kills'}
-    ]], ro + 1, 19, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 1, 20, [[true, true, true, true, true, true, true, true, true, true]])
 
     uev = []
     numType = []
@@ -436,9 +438,9 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'numberValue' : participant.stats.visionScore},
             {'numberValue' : participant.stats.goldEarned},
             {'numberValue' : participant.stats.totalDamageDealtToChampions},
-            {'formulaValue' : '='+_tsc(2+i+ro,24)+'/(TIMEVALUE('+_tsc(0+ro,8)+')*1440)'},
+            {'formulaValue' : '='+_tsc(2+i+ro,25)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'numberValue' : participant.stats.totalMinionsKilled + participant.stats.neutralMinionsKilled},
-            {'formulaValue' : '=('+_tsc(2+i+ro,26)+'+'+_tsc(2+i+ro,28)+')/'+_tsc(2+i+ro,27)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,27)+'+'+_tsc(2+i+ro,29)+')/'+_tsc(2+i+ro,28)},
             {'numberValue' : participant.stats.assists},
             {'numberValue' : participant.stats.deaths},
             {'numberValue' : participant.stats.kills},
@@ -447,7 +449,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         ]
         uev.push(uevRow)
     }
-    _writeBlock(requests, sheetId, uev, ro + 2, 19, [], numType)
+    _writeBlock(requests, sheetId, uev, ro + 2, 20, [], numType)
 
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Total Wards Placed'},
@@ -460,20 +462,20 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Total Assists'},
         {'stringValue' : 'Total Deaths'},
         {'stringValue' : 'Total Kills'},
-    ]], ro + 7, 19, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 7, 20, [[true, true, true, true, true, true, true, true, true, true]])
 
     _writeBlock(requests, sheetId, [[
-        {'formulaValue' : '=sum('+_tsc(2+ro,19)+':'+_tsc(6+ro,19)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,20)+':'+_tsc(6+ro,20)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,21)+':'+_tsc(6+ro,21)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,22)+':'+_tsc(6+ro,22)+')'},
-        {'formulaValue' : '=sum('+_tsc(2+ro,23)+':'+_tsc(6+ro,23)+')/5'},
-        {'formulaValue' : '=sum('+_tsc(2+ro,24)+':'+_tsc(6+ro,24)+')'},
-        {'formulaValue' : '=('+_tsc(8+ro,26)+'+'+_tsc(8+ro,28)+')/'+_tsc(8+ro,27)},
-        {'formulaValue' : '=sum('+_tsc(2+ro,26)+':'+_tsc(6+ro,26)+')'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,23)+':'+_tsc(6+ro,23)+')'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,24)+':'+_tsc(6+ro,24)+')/5'},
+        {'formulaValue' : '=sum('+_tsc(2+ro,25)+':'+_tsc(6+ro,25)+')'},
+        {'formulaValue' : '=('+_tsc(8+ro,27)+'+'+_tsc(8+ro,29)+')/'+_tsc(8+ro,28)},
         {'formulaValue' : '=sum('+_tsc(2+ro,27)+':'+_tsc(6+ro,27)+')'},
         {'formulaValue' : '=sum('+_tsc(2+ro,28)+':'+_tsc(6+ro,28)+')'},
-    ]], ro + 8, 19)
+        {'formulaValue' : '=sum('+_tsc(2+ro,29)+':'+_tsc(6+ro,29)+')'},
+    ]], ro + 8, 20)
 
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Wards/Min'},
@@ -486,7 +488,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Damage/Death'},
         {'stringValue' : 'Damage/Min'},
         {'stringValue' : 'Kill Participation'},
-    ]], ro + 10, 19, [[true, true, true, true, true, true, true, true, true, true]])
+    ]], ro + 10, 20, [[true, true, true, true, true, true, true, true, true, true]])
 
     uev = []
     numType = []
@@ -495,23 +497,23 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         let participant = gamesJson.stats.participants[i + 5]
 
         let uevRow = [
-            {'formulaValue' : '='+_tsc(2+i+ro,19)+'/(TIMEVALUE('+_tsc(0+ro,8)+')*1440)'},
-            {'formulaValue' : '='+_tsc(2+i+ro,26)+'/'+_tsc(8+ro,26)},
+            {'formulaValue' : '='+_tsc(2+i+ro,20)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'formulaValue' : '='+_tsc(2+i+ro,27)+'/'+_tsc(8+ro,27)},
             {'formulaValue' : '='+_tsc(2+i+ro,28)+'/'+_tsc(8+ro,28)},
-            {'formulaValue' : '='+_tsc(2+i+ro,21)+'/'+_tsc(8+ro,21)},
-            {'formulaValue' : '=('+_tsc(2+i+ro,22)+'/'+_tsc(2+i+ro,21)+')*100'},
+            {'formulaValue' : '='+_tsc(2+i+ro,29)+'/'+_tsc(8+ro,29)},
             {'formulaValue' : '='+_tsc(2+i+ro,22)+'/'+_tsc(8+ro,22)},
-            {'formulaValue' : '='+_tsc(2+i+ro,22)+'/'+_tsc(8+ro,27)},
-            {'formulaValue' : '='+_tsc(2+i+ro,22)+'/(TIMEVALUE('+_tsc(0+ro,8)+')*1440)'},
-            {'formulaValue' : '=('+_tsc(2+i+ro,26)+'+'+_tsc(2+i+ro,28)+')/'+_tsc(8+ro,27)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,23)+'/'+_tsc(2+i+ro,22)+')*100'},
+            {'formulaValue' : '='+_tsc(2+i+ro,23)+'/'+_tsc(8+ro,23)},
+            {'formulaValue' : '='+_tsc(2+i+ro,23)+'/'+_tsc(8+ro,28)},
+            {'formulaValue' : '='+_tsc(2+i+ro,23)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
+            {'formulaValue' : '=('+_tsc(2+i+ro,27)+'+'+_tsc(2+i+ro,29)+')/'+_tsc(8+ro,28)},
             {'stringValue' : ''},
             {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
         ]
         uev.push(uevRow)
         numType.push(['NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER'])
     }
-    _writeBlock(requests, sheetId, uev, ro + 11, 19, [], numType)
+    _writeBlock(requests, sheetId, uev, ro + 11, 20, [], numType)
     
     _writeBlock(requests, sheetId, [
         [{'stringValue' : ''}, {'stringValue' : 'Objectives'}],
@@ -521,35 +523,35 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         [{'numberValue' : gamesJson.stats.teams[1].baronKills}, {'stringValue' : 'Barons'}],
         [{'numberValue' : gamesJson.stats.teams[1].towerKills}, {'stringValue' : 'Towers'}],
         [{'numberValue' : gamesJson.stats.teams[1].inhibitorKills}, {'stringValue' : 'Inhibitors'}]
-    ], ro + 17, 19, [[false, true], [false, true], [false, true], [false, true], [false, true], [false, true], [false, true]])
+    ], ro + 17, 20, [[false, true], [false, true], [false, true], [false, true], [false, true], [false, true], [false, true]])
 
 
     
     _writeBlock(requests, sheetId, [
-        [{'stringValue' : 'Kills'}, {'formulaValue' : '='+_tsc(8+ro,2)}, {'formulaValue' : '=IF('+_tsc(1+ro,14)+'>'+_tsc(1+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,28)}, {'stringValue' : 'Kills'}],
+        [{'stringValue' : 'Kills'}, {'formulaValue' : '='+_tsc(8+ro,3)}, {'formulaValue' : '=IF('+_tsc(1+ro,15)+'>'+_tsc(1+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,29)}, {'stringValue' : 'Kills'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Deaths'}, {'formulaValue' : '='+_tsc(8+ro,3)}, {'formulaValue' : '=IF('+_tsc(3+ro,14)+'>'+_tsc(3+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,27)}, {'stringValue' : 'Deaths'}],
+        [{'stringValue' : 'Deaths'}, {'formulaValue' : '='+_tsc(8+ro,4)}, {'formulaValue' : '=IF('+_tsc(3+ro,15)+'>'+_tsc(3+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,28)}, {'stringValue' : 'Deaths'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Assists'}, {'formulaValue' : '='+_tsc(8+ro,4)}, {'formulaValue' : '=IF('+_tsc(5+ro,14)+'>'+_tsc(5+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,26)}, {'stringValue' : 'Assists'}],
+        [{'stringValue' : 'Assists'}, {'formulaValue' : '='+_tsc(8+ro,5)}, {'formulaValue' : '=IF('+_tsc(5+ro,15)+'>'+_tsc(5+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,27)}, {'stringValue' : 'Assists'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'CS'}, {'formulaValue' : '='+_tsc(8+ro,6)}, {'formulaValue' : '=IF('+_tsc(7+ro,14)+'>'+_tsc(7+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,24)}, {'stringValue' : 'CS'}],
+        [{'stringValue' : 'CS'}, {'formulaValue' : '='+_tsc(8+ro,7)}, {'formulaValue' : '=IF('+_tsc(7+ro,15)+'>'+_tsc(7+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,25)}, {'stringValue' : 'CS'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'CS/Min'}, {'formulaValue' : '='+_tsc(8+ro,7)}, {'formulaValue' : '=IF('+_tsc(9+ro,14)+'>'+_tsc(9+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,23)}, {'stringValue' : 'CS/Min'}],
+        [{'stringValue' : 'CS/Min'}, {'formulaValue' : '='+_tsc(8+ro,8)}, {'formulaValue' : '=IF('+_tsc(9+ro,15)+'>'+_tsc(9+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,24)}, {'stringValue' : 'CS/Min'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Damage'}, {'formulaValue' : '='+_tsc(8+ro,8)}, {'formulaValue' : '=IF('+_tsc(11+ro,14)+'>'+_tsc(11+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,22)}, {'stringValue' : 'Damage'}],
+        [{'stringValue' : 'Damage'}, {'formulaValue' : '='+_tsc(8+ro,9)}, {'formulaValue' : '=IF('+_tsc(11+ro,15)+'>'+_tsc(11+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,23)}, {'stringValue' : 'Damage'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Gold'}, {'formulaValue' : '='+_tsc(8+ro,9)}, {'formulaValue' : '=IF('+_tsc(13+ro,14)+'>'+_tsc(13+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,21)}, {'stringValue' : 'Gold'}],
+        [{'stringValue' : 'Gold'}, {'formulaValue' : '='+_tsc(8+ro,10)}, {'formulaValue' : '=IF('+_tsc(13+ro,15)+'>'+_tsc(13+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,22)}, {'stringValue' : 'Gold'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Vision Score'}, {'formulaValue' : '='+_tsc(8+ro,10)}, {'formulaValue' : '=IF('+_tsc(15+ro,14)+'>'+_tsc(15+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(8+ro,20)}, {'stringValue' : 'Vision Score'}],
+        [{'stringValue' : 'Vision Score'}, {'formulaValue' : '='+_tsc(8+ro,11)}, {'formulaValue' : '=IF('+_tsc(15+ro,15)+'>'+_tsc(15+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,21)}, {'stringValue' : 'Vision Score'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Dragons'}, {'formulaValue' : '='+_tsc(19+ro,11)}, {'formulaValue' : '=IF('+_tsc(17+ro,14)+'>'+_tsc(17+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(19+ro,19)}, {'stringValue' : 'Dragons'}],
+        [{'stringValue' : 'Dragons'}, {'formulaValue' : '='+_tsc(19+ro,12)}, {'formulaValue' : '=IF('+_tsc(17+ro,15)+'>'+_tsc(17+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(19+ro,20)}, {'stringValue' : 'Dragons'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Barons'}, {'formulaValue' : '='+_tsc(21+ro,11)}, {'formulaValue' : '=IF('+_tsc(19+ro,14)+'>'+_tsc(19+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(21+ro,19)}, {'stringValue' : 'Barons'}],
+        [{'stringValue' : 'Barons'}, {'formulaValue' : '='+_tsc(21+ro,12)}, {'formulaValue' : '=IF('+_tsc(19+ro,15)+'>'+_tsc(19+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(21+ro,20)}, {'stringValue' : 'Barons'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Towers'}, {'formulaValue' : '='+_tsc(22+ro,11)}, {'formulaValue' : '=IF('+_tsc(21+ro,14)+'>'+_tsc(21+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(22+ro,19)}, {'stringValue' : 'Towers'}],
+        [{'stringValue' : 'Towers'}, {'formulaValue' : '='+_tsc(22+ro,12)}, {'formulaValue' : '=IF('+_tsc(21+ro,15)+'>'+_tsc(21+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(22+ro,20)}, {'stringValue' : 'Towers'}],
         [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Inhibitors'}, {'formulaValue' : '='+_tsc(23+ro,11)}, {'formulaValue' : '=IF('+_tsc(23+ro,14)+'>'+_tsc(23+ro,16)+','+_tsc(ro,0)+','+_tsc(ro,30)+')'}, {'formulaValue' : '='+_tsc(23+ro,19)}, {'stringValue' : 'Inhibitors'}],
-    ], ro + 1, 13, [
+        [{'stringValue' : 'Inhibitors'}, {'formulaValue' : '='+_tsc(23+ro,12)}, {'formulaValue' : '=IF('+_tsc(23+ro,15)+'>'+_tsc(23+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(23+ro,20)}, {'stringValue' : 'Inhibitors'}],
+    ], ro + 1, 14, [
         [true, false, true, false, true],
         [true, false, true, false, true],
         [true, false, true, false, true],

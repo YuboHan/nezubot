@@ -28,8 +28,8 @@ module.exports = {
         }
         else if (args.length == 3)
         {
-            teamName.push(args[0])
-            teamName.push(args[1])
+            teamName.push(args[0].trim())
+            teamName.push(args[1].trim())
             URL = args[2]
         }
         else
