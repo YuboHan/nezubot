@@ -5,53 +5,82 @@ const commandParser = require('./src/CommandParser.js')  // Get library to parse
 // Discord client handle. All utility functions will get passed this instance
 const client = new discord.Client()
 
+var discIds = {
+    duoEsportsGuild : null,
+    dotenarkPrivGuild : null,
+    gpResultsChannel : null,
+    ibsgResultsChannel : null
+}
+
 // When the bot comes online
 client.on('ready', () => 
 {
     // List all servers bot is connected to
-    console.log('Connected as ' + client.user.tag)
-    console.log('Servers: ')
+    //console.log('Connected as ' + client.user.tag)
+    //console.log('Servers: ')
 
-    let CID
     client.guilds.forEach(guild =>
     {
-        console.log(' - ' + guild.name)
+        // console.log(' - ' + guild.name + ' - ' + guild['id'] + '\n')
 
-        // List all channels
-        guild.channels.forEach(channel =>
+        // // List all channels
+        // guild.channels.forEach(channel =>
+        // {
+        //     console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
+        // })
+
+        if (guild.name == 'Duo Esports')
         {
-            console.log(` -- ${channel.name} (${channel.type}) - ${channel.id}`)
-        })
+            discIds.duoEsportsGuild = guild.id
 
-        CID = guild.channels.find(channel => channel.name ==='general').id
+            guild.channels.forEach(channel =>
+            {
+                if (channel.name == 'gpcs-bot-results')
+                {
+                    discIds.gpResultsChannel = channel.id
+                }
+                else if (channel.name == 'ibsg-bot-results')
+                {
+                    discIds.ibsgResultsChannel = channel.id
+                }
+            })
+
+            if (discIds.gpResultsChannel == null)
+            {
+                console.log('Error: Cannot find gpcs-bot-results')
+            }
+            if (discIds.ibsgResultsChannel == null)
+            {
+                console.log('Error: Cannot find ibsg-bot-results')
+            }
+        }
+        else if (guild.name == 'DotenarkPrivateServer')
+        {
+            discIds.dotenarkPrivGuild = guild.id
+        }
     })
-
-    if (CID == undefined)
-    {
-        console.log('Warning: No channel named \'general\' found')
-    }
-
-    let generalChannel = client.channels.get(CID)
-    generalChannel.send('Nezubot has connected, come say hi!')
 })
 
 // Whenever bot receives a message
 client.on('message', receivedMessage =>
 {
-    // Prevent bot from responding to its own comments
-    if (receivedMessage.author != client.user)
+    if (receivedMessage.channel.id == discIds.gpResultsChannel ||
+        receivedMessage.channel.id == discIds.ibsgResultsChannel)
     {
-        commandParser.parseMessage(receivedMessage)
-        // try
-        // {
-        //     commandParser.parseMessage(receivedMessage)
-        // }
-        // catch(err)
-        // {
-        //     let ret = 'Error parsing message:\n'
-        //     ret += receivedMessage.content
-        //     receivedMessage.channel.send(ret)
-        // }
+        if (receivedMessage.author != client.user)
+        {
+            commandParser.parseMessage(receivedMessage, discIds)
+            // try
+            // {
+            //     commandParser.parseMessage(receivedMessage, receivedMessage.channel, discIds)
+            // }
+            // catch(err)
+            // {
+            //     let ret = 'Error parsing message:\n'
+            //     ret += receivedMessage.content
+            //     receivedMessage.channel.send(ret)
+            // }
+        }
     }
 })
 
