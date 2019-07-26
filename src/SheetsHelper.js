@@ -280,6 +280,10 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
     let m = Math.floor(s / 60)
     s = s - (m * 60)
 
+    // op.gg link
+    _writeCell(requests, sheetId, 'op.gg link:', ro + 23, 28)
+    _writeCell(requests, sheetId, gamesJson.gameUrl, ro + 23, 29)
+
     // Game winner
     let winner = gamesJson.teamNames[1]
     if (gamesJson.stats.teams[0].win.toLowerCase() == 'win')
@@ -293,6 +297,8 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : winner + ' Win'}
     ]], ro, 8, [[true, false, true]])
+
+
     _writeCell(requests, sheetId, 'Comparisons', ro, 16, true)
     _writeBlock(requests, sheetId, [[
         {'stringValue' : winner + ' Win'},
@@ -386,7 +392,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         let uevRow = [
             {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
             {'stringValue' : ''},
-            {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(8+ro,4)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(8+ro,3)},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(2+i+ro,4)},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(8+ro,9)},
@@ -506,7 +512,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'formulaValue' : '='+_tsc(2+i+ro,23)+'/'+_tsc(8+ro,23)},
             {'formulaValue' : '='+_tsc(2+i+ro,23)+'/'+_tsc(8+ro,28)},
             {'formulaValue' : '='+_tsc(2+i+ro,23)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
-            {'formulaValue' : '=('+_tsc(2+i+ro,27)+'+'+_tsc(2+i+ro,29)+')/'+_tsc(8+ro,28)},
+            {'formulaValue' : '=('+_tsc(2+i+ro,27)+'+'+_tsc(2+i+ro,29)+')/'+_tsc(8+ro,29)},
             {'stringValue' : ''},
             {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
         ]

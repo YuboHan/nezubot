@@ -47,6 +47,7 @@ module.exports = {
 
             let jsonToAppend = {
                 'gameId' : riotHelper.getGameIdFromURL(URL),
+                'gameUrl' : URL,
                 'teamNames' : teamName,
                 'stats' : gameJson
             }

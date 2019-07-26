@@ -58,14 +58,16 @@ module.exports = {
         switch(key)
         {
             case 141: return 'Kayn'
+            case 142: return 'Zoe'
+            case 145: return 'Kaisa'
+            case 246: return 'Qiyana'
+            case 350: return 'Yuumi'
+            case 497: return 'Rakan'
+            case 498: return 'Xayah'
+            case 516: return 'Ornn'
             case 517: return 'Sylas'
             case 518: return 'Neeko'
-            case 516: return 'Ornn'
-            case 145: return 'Kaisa'
-        }
-
-        if (key == 517) {
-            return "Sylas"
+            case 555: return 'Pyke'
         }
 
         console.log("Warning: Cannot find champion ID: " + key)
