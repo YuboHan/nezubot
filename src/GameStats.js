@@ -8,6 +8,9 @@ const gamesFileName = './logs/gamesResults.json'
 const gpResultsFile = './logs/gpResults.json'
 const ibsgResultsFile = './logs/ibsgResults.json'
 
+const ibsgTeamsFileName = './TeamsDatabase/ibsgTeams.json'
+const gpTeamsFileName = './TeamsDatabase/gpTeams.json'
+
 module.exports = {
     /**
      * Get game JSON from Riot API, and save data (append data) to gamesFileName
@@ -18,25 +21,49 @@ module.exports = {
      */
     postGameStats : function(channel, args, league)
     {
-        let teamName = []
-        let URL
-        if (args.length == 1)
-        {
-            teamName.push('')
-            teamName.push('')
-            URL = args[0]
-        }
-        else if (args.length == 3)
-        {
-            teamName.push(args[0].trim())
-            teamName.push(args[1].trim())
-            URL = args[2]
-        }
-        else
+        if (args.length != 3)
         {
             throw 'Error: Improperly formatted !post-game-stats call.'
         }
-        
+
+        let URL = args[2]
+        let teamsJson = {}
+        let teamObjs = []
+
+        if (league == 'gp')
+        {
+            teamsJson = fileHelper.readJsonFromFile(gpTeamsFileName)
+        }
+        else if (league == 'ibsg')
+        {
+            teamsJson = fileHelper.readJsonFromFile(ibsgTeamsFileName)
+        }
+        else
+        {
+            throw 'Error: Unrecognized league "' + league + '"'
+        }
+
+        let winnerId = args[0].trim().toUpperCase()
+        let loserId = args[1].trim().toUpperCase()
+
+        if (winnerId in teamsJson)
+        {
+            teamObjs.push(teamsJson[winnerId])
+        }
+        else
+        {
+            throw 'Unrecognized team ' + winnerId
+        }
+
+        if (loserId in teamsJson)
+        {
+            teamObjs.push(teamsJson[loserId])
+        }
+        else
+        {
+            throw 'Unrecognized team ' + loserId
+        }
+
         riotHelper.getGameJson(URL, (gameJson) =>
         {
             if (gameJson.status != undefined)
@@ -48,7 +75,7 @@ module.exports = {
             let jsonToAppend = {
                 'gameId' : riotHelper.getGameIdFromURL(URL),
                 'gameUrl' : URL,
-                'teamNames' : teamName,
+                'teamObjs' : teamObjs,
                 'stats' : gameJson
             }
 

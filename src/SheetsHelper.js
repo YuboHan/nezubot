@@ -85,7 +85,7 @@ function _setSheetSize(requests, sheetId)
     })
 }
 
-function _setColors(requests, sheetId, ro)
+function _setBorderColors(requests, sheetId, ro)
 {
     // Set background colors (1 is black, 0 is white)
     let colors = [
@@ -143,20 +143,6 @@ function _setColors(requests, sheetId, ro)
         rows.push({'values' : values})
     }
 
-    let ii = {
-        'updateCells' : {
-            'rows' : rows,
-            'fields' : 'userEnteredFormat.backgroundColor',
-            'range' : {
-                'sheetId' : sheetId,
-                'startRowIndex' : ro,
-                'endRowIndex' : ro + colors.length,
-                'startColumnIndex' : 0,
-                'endColumnIndex' : colors[0].length
-            }
-        }
-    }
-
     requests.push(
     {
         'updateCells' : {
@@ -170,6 +156,57 @@ function _setColors(requests, sheetId, ro)
                 'endColumnIndex' : colors[0].length
             }
         }
+    })
+}
+
+function _colorCells(requests, sheetId, row, col, width, height, color={'red' : 0.5, 'green' : 0.0, 'blue' : 0.0})
+{
+    let rows = []
+    for (let j = 0; j < height; j++)
+    {
+        let values = []
+        for (let i = 0; i < width; i++)
+        {
+            values.push(
+            {
+                'userEnteredFormat' : {
+                    'backgroundColor' : color
+                }
+            })
+        }
+        rows.push({'values' : values})
+    }
+
+    requests.push(
+    {
+        'updateCells' : {
+            'rows' : rows,
+            'fields' : 'userEnteredFormat.backgroundColor',
+            'range' : {
+                'sheetId' : sheetId,
+                'startRowIndex' : row,
+                'endRowIndex' : row + height,
+                'startColumnIndex' : col,
+                'endColumnIndex' : col + width
+            }
+        }
+    })
+}
+
+function _mergeCells(requests, sheetId, row, col, width, height)
+{
+    requests.push(
+    {
+        "mergeCells": {
+            "range": {
+                "sheetId": sheetId,
+                "startRowIndex": row,
+                "endRowIndex": row + height,
+                "startColumnIndex": col,
+                "endColumnIndex": col + width
+        },
+        "mergeType": "MERGE_ALL"
+      }
     })
 }
 
@@ -271,7 +308,15 @@ function _writeBlock(requests, sheetId, userEnteredValues, row, col, bold, numTy
 
 function _formatTeam(requests, sheetId, ro, gamesJson)
 {
-    _setColors(requests, sheetId, ro)
+    _setBorderColors(requests, sheetId, ro)
+
+    // Merge title cells
+    _mergeCells(requests, sheetId, ro, 0, 2, 1)
+    _mergeCells(requests, sheetId, ro, 31, 2, 1)
+
+    // Merge icon cells
+    _mergeCells(requests, sheetId, ro + 17, 0, 2, 12)
+    _mergeCells(requests, sheetId, ro + 17, 31, 2, 12)
 
     // Get game time
     let s = gamesJson.stats.gameDuration
@@ -285,29 +330,37 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
     _writeCell(requests, sheetId, gamesJson.gameUrl, ro + 23, 29)
 
     // Game winner
-    let blueSideTeamName = gamesJson.teamNames[1]
-    let redSideTeamName = gamesJson.teamNames[1]
+    let blueSideTeamName = gamesJson.teamObjs[1].fullName
+    let redSideTeamName = gamesJson.teamObjs[1].fullName
+
+    // color all cells loser color, and update winner after
+    _colorCells(requests, sheetId, ro + 17, 0, 1, 1, gamesJson.teamObjs[1].color)
+    _colorCells(requests, sheetId, ro + 17, 31, 1, 1, gamesJson.teamObjs[1].color)
 
     if (gamesJson.stats.teams[0].win.toLowerCase() == 'win')
     {
-        blueSideTeamName = gamesJson.teamNames[0]
+        blueSideTeamName = gamesJson.teamObjs[0].fullName
+    _colorCells(requests, sheetId, ro + 17, 0, 1, 1, gamesJson.teamObjs[0].color)
     }
     else
     {
-        redSideTeamName = gamesJson.teamNames[0]
+        redSideTeamName = gamesJson.teamObjs[0].fullName
+    _colorCells(requests, sheetId, ro + 17, 31, 1, 1, gamesJson.teamObjs[0].color)
     }
 
-    _writeCell(requests, sheetId, blueSideTeamName, ro, 1, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    // 
+
+    _writeCell(requests, sheetId, blueSideTeamName, ro, 0, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Game Time'}, 
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
-        {'stringValue' : gamesJson.teamNames[0] + ' Win'}
+        {'stringValue' : gamesJson.teamObjs[0].id + ' Win'}
     ]], ro, 8, [[true, false, true]])
 
 
     _writeCell(requests, sheetId, 'Comparisons', ro, 16, true)
     _writeBlock(requests, sheetId, [[
-        {'stringValue' : gamesJson.teamNames[0] + ' Win'},
+        {'stringValue' : gamesJson.teamObjs[0].id + ' Win'},
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : 'Game Time'}, 
     ]], ro, 22, [[true, false, true]])
@@ -540,29 +593,29 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
 
     
     _writeBlock(requests, sheetId, [
-        [{'stringValue' : 'Kills'}, {'formulaValue' : '='+_tsc(8+ro,3)}, {'formulaValue' : '=IF('+_tsc(1+ro,15)+'>'+_tsc(1+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,29)}, {'stringValue' : 'Kills'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Deaths'}, {'formulaValue' : '='+_tsc(8+ro,4)}, {'formulaValue' : '=IF('+_tsc(3+ro,15)+'>'+_tsc(3+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,28)}, {'stringValue' : 'Deaths'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Assists'}, {'formulaValue' : '='+_tsc(8+ro,5)}, {'formulaValue' : '=IF('+_tsc(5+ro,15)+'>'+_tsc(5+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,27)}, {'stringValue' : 'Assists'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'CS'}, {'formulaValue' : '='+_tsc(8+ro,7)}, {'formulaValue' : '=IF('+_tsc(7+ro,15)+'>'+_tsc(7+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,25)}, {'stringValue' : 'CS'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'CS/Min'}, {'formulaValue' : '='+_tsc(8+ro,8)}, {'formulaValue' : '=IF('+_tsc(9+ro,15)+'>'+_tsc(9+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,24)}, {'stringValue' : 'CS/Min'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Damage'}, {'formulaValue' : '='+_tsc(8+ro,9)}, {'formulaValue' : '=IF('+_tsc(11+ro,15)+'>'+_tsc(11+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,23)}, {'stringValue' : 'Damage'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Gold'}, {'formulaValue' : '='+_tsc(8+ro,10)}, {'formulaValue' : '=IF('+_tsc(13+ro,15)+'>'+_tsc(13+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,22)}, {'stringValue' : 'Gold'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Vision Score'}, {'formulaValue' : '='+_tsc(8+ro,11)}, {'formulaValue' : '=IF('+_tsc(15+ro,15)+'>'+_tsc(15+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,21)}, {'stringValue' : 'Vision Score'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Dragons'}, {'formulaValue' : '='+_tsc(19+ro,12)}, {'formulaValue' : '=IF('+_tsc(17+ro,15)+'>'+_tsc(17+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(19+ro,20)}, {'stringValue' : 'Dragons'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Barons'}, {'formulaValue' : '='+_tsc(21+ro,12)}, {'formulaValue' : '=IF('+_tsc(19+ro,15)+'>'+_tsc(19+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(21+ro,20)}, {'stringValue' : 'Barons'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Towers'}, {'formulaValue' : '='+_tsc(22+ro,12)}, {'formulaValue' : '=IF('+_tsc(21+ro,15)+'>'+_tsc(21+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(22+ro,20)}, {'stringValue' : 'Towers'}],
-        [{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''},{'stringValue' : ''}],
-        [{'stringValue' : 'Inhibitors'}, {'formulaValue' : '='+_tsc(23+ro,12)}, {'formulaValue' : '=IF('+_tsc(23+ro,15)+'>'+_tsc(23+ro,17)+','+_tsc(ro,1)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(23+ro,20)}, {'stringValue' : 'Inhibitors'}],
+        [{'stringValue' : 'Kills'}       , {'formulaValue' : '='+_tsc(8+ro,3)}  , {'formulaValue' : '=IF('+_tsc(1+ro,15)+'>'+_tsc(1+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}  , {'formulaValue' : '='+_tsc(8+ro,29)} , {'stringValue' : 'Kills'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Deaths'}      , {'formulaValue' : '='+_tsc(8+ro,4)}  , {'formulaValue' : '=IF('+_tsc(3+ro,15)+'>'+_tsc(3+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}  , {'formulaValue' : '='+_tsc(8+ro,28)} , {'stringValue' : 'Deaths'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Assists'}     , {'formulaValue' : '='+_tsc(8+ro,5)}  , {'formulaValue' : '=IF('+_tsc(5+ro,15)+'>'+_tsc(5+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}  , {'formulaValue' : '='+_tsc(8+ro,27)} , {'stringValue' : 'Assists'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'CS'}          , {'formulaValue' : '='+_tsc(8+ro,7)}  , {'formulaValue' : '=IF('+_tsc(7+ro,15)+'>'+_tsc(7+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}  , {'formulaValue' : '='+_tsc(8+ro,25)} , {'stringValue' : 'CS'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'CS/Min'}      , {'formulaValue' : '='+_tsc(8+ro,8)}  , {'formulaValue' : '=IF('+_tsc(9+ro,15)+'>'+_tsc(9+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}  , {'formulaValue' : '='+_tsc(8+ro,24)} , {'stringValue' : 'CS/Min'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Damage'}      , {'formulaValue' : '='+_tsc(8+ro,9)}  , {'formulaValue' : '=IF('+_tsc(11+ro,15)+'>'+_tsc(11+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,23)} , {'stringValue' : 'Damage'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Gold'}        , {'formulaValue' : '='+_tsc(8+ro,10)} , {'formulaValue' : '=IF('+_tsc(13+ro,15)+'>'+_tsc(13+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,22)} , {'stringValue' : 'Gold'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Vision Score'}, {'formulaValue' : '='+_tsc(8+ro,11)} , {'formulaValue' : '=IF('+_tsc(15+ro,15)+'>'+_tsc(15+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(8+ro,21)} , {'stringValue' : 'Vision Score'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Dragons'}     , {'formulaValue' : '='+_tsc(19+ro,12)}, {'formulaValue' : '=IF('+_tsc(17+ro,15)+'>'+_tsc(17+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(19+ro,20)}, {'stringValue' : 'Dragons'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Barons'}      , {'formulaValue' : '='+_tsc(21+ro,12)}, {'formulaValue' : '=IF('+_tsc(19+ro,15)+'>'+_tsc(19+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(21+ro,20)}, {'stringValue' : 'Barons'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Towers'}      , {'formulaValue' : '='+_tsc(22+ro,12)}, {'formulaValue' : '=IF('+_tsc(21+ro,15)+'>'+_tsc(21+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(22+ro,20)}, {'stringValue' : 'Towers'}],
+        [{'stringValue' : ''}            , {'stringValue'  : ''}                , {'stringValue'  : ''}                                                                         , {'stringValue'  : ''}                , {'stringValue' : ''}],
+        [{'stringValue' : 'Inhibitors'}  , {'formulaValue' : '='+_tsc(23+ro,12)}, {'formulaValue' : '=IF('+_tsc(23+ro,15)+'>'+_tsc(23+ro,17)+','+_tsc(ro,0)+','+_tsc(ro,31)+')'}, {'formulaValue' : '='+_tsc(23+ro,20)}, {'stringValue' : 'Inhibitors'}],
     ], ro + 1, 14, [
         [true, false, true, false, true],
         [true, false, true, false, true],

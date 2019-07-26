@@ -1,0 +1,42 @@
+{
+	"EG": {
+		"id": "EG",
+		"fullName": "Enigmatic Gaming",
+		"color" : {"red" : 0.1, "green" : 0.1, "blue" : 1.0}
+	},
+	"LER": {
+		"id": "LER",
+		"fullName": "Life Essence Reaper",
+		"color" : {"red" : 0, "green" : 1.0, "blue" : 1.0}
+	},
+	"PWS": {
+		"id": "PWS",
+		"fullName": "Pawn Sacrifice",
+		"color" : {"red" : 0.957, "green" : 0.8, "blue" : 0.8}
+	},
+	"PG": {
+		"id": "PG",
+		"fullName": "Pursuit Gaming",
+		"color" : {"red" : 0, "green" : 1.0, "blue" : 1.0}
+	},
+	"RK": {
+		"id": "RK",
+		"fullName": "Resurrected Kings",
+		"color" : {"red" : 0, "green" : 1.0, "blue" : 1.0}
+	},
+	"RUE": {
+		"id": "RUE",
+		"fullName": "RUE Disband",
+		"color" : {"red" : 1.0, "green" : 0, "blue" : 0}
+	},
+	"SB": {
+		"id": "SB",
+		"fullName": "Sad Bois",
+		"color" : {"red" : 0, "green" : 1.0, "blue" : 1.0}
+	},
+	"TG": {
+		"id": "TG",
+		"fullName": "Titan Gaming",
+		"color" : {"red" : 0.6, "green" : 0, "blue" : 1.0}
+	}
+}
