@@ -285,27 +285,33 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
     _writeCell(requests, sheetId, gamesJson.gameUrl, ro + 23, 29)
 
     // Game winner
-    let winner = gamesJson.teamNames[1]
+    let blueSideTeamName = gamesJson.teamNames[1]
+    let redSideTeamName = gamesJson.teamNames[1]
+
     if (gamesJson.stats.teams[0].win.toLowerCase() == 'win')
     {
-        winner = gamesJson.teamNames[0]
+        blueSideTeamName = gamesJson.teamNames[0]
+    }
+    else
+    {
+        redSideTeamName = gamesJson.teamNames[0]
     }
 
-    _writeCell(requests, sheetId, gamesJson.teamNames[0], ro, 1, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    _writeCell(requests, sheetId, blueSideTeamName, ro, 1, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Game Time'}, 
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
-        {'stringValue' : winner + ' Win'}
+        {'stringValue' : gamesJson.teamNames[0] + ' Win'}
     ]], ro, 8, [[true, false, true]])
 
 
     _writeCell(requests, sheetId, 'Comparisons', ro, 16, true)
     _writeBlock(requests, sheetId, [[
-        {'stringValue' : winner + ' Win'},
+        {'stringValue' : gamesJson.teamNames[0] + ' Win'},
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : 'Game Time'}, 
     ]], ro, 22, [[true, false, true]])
-    _writeCell(requests, sheetId, gamesJson.teamNames[1], ro, 31, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    _writeCell(requests, sheetId, redSideTeamName, ro, 31, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
 
     // Blue side
     _writeBlock(requests, sheetId, [[
