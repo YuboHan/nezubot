@@ -332,6 +332,8 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
     // Game winner
     let blueSideTeamName = gamesJson.teamObjs[1].fullName
     let redSideTeamName = gamesJson.teamObjs[1].fullName
+    let blueSideColor = gamesJson.teamObjs[1].color
+    let redSideColor = gamesJson.teamObjs[1].color
 
     // color all cells loser color, and update winner after
     _colorCells(requests, sheetId, ro + 17, 0, 1, 1, gamesJson.teamObjs[1].color)
@@ -340,17 +342,19 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
     if (gamesJson.stats.teams[0].win.toLowerCase() == 'win')
     {
         blueSideTeamName = gamesJson.teamObjs[0].fullName
-    _colorCells(requests, sheetId, ro + 17, 0, 1, 1, gamesJson.teamObjs[0].color)
+        blueSideColor = gamesJson.teamObjs[0].color
+        _colorCells(requests, sheetId, ro + 17, 0, 1, 1, gamesJson.teamObjs[0].color)
     }
     else
     {
         redSideTeamName = gamesJson.teamObjs[0].fullName
-    _colorCells(requests, sheetId, ro + 17, 31, 1, 1, gamesJson.teamObjs[0].color)
+        redSideColor = gamesJson.teamObjs[0].color
+        _colorCells(requests, sheetId, ro + 17, 31, 1, 1, gamesJson.teamObjs[0].color)
     }
 
     // 
 
-    _writeCell(requests, sheetId, blueSideTeamName, ro, 0, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    _writeCell(requests, sheetId, blueSideTeamName, ro, 0, true, true, false, 24, blueSideColor)
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Game Time'}, 
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
@@ -364,7 +368,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + s).slice(-2)},
         {'stringValue' : 'Game Time'}, 
     ]], ro, 22, [[true, false, true]])
-    _writeCell(requests, sheetId, redSideTeamName, ro, 31, true, true, true, 35, {'red' : 1.0, 'green' : 1.0, 'blue' : 1.0})
+    _writeCell(requests, sheetId, redSideTeamName, ro, 31, true, true, false, 24, redSideColor)
 
     // Blue side
     _writeBlock(requests, sheetId, [[
