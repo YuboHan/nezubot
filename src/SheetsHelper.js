@@ -384,14 +384,18 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Wards Placed'}
     ]], ro + 1, 3, [[true, true, true, true, true, true, true, true, true, true]])
 
+    for (let i = 0; i < 5; i++)
+    {
+        _writeCell(requests, sheetId, "", ro + 2 + i, 0, true, true, false, 12)
+        _writeCell(requests, sheetId, riotHelper.getChampionNameByKey(gamesJson.stats.participants[i].championId), ro + 2 + i, 1, true, false, false, 12)
+    }
+
     let uev = []
     for (let i = 0; i < 5; i++)
     {
         let participant = gamesJson.stats.participants[i]
 
         let uevRow = [
-            {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
-            {'stringValue' : ''},
             {'numberValue' : participant.stats.kills},
             {'numberValue' : participant.stats.deaths},
             {'numberValue' : participant.stats.assists},
@@ -406,7 +410,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         uev.push(uevRow)
     }
 
-    _writeBlock(requests, sheetId, uev, ro + 2, 1)
+    _writeBlock(requests, sheetId, uev, ro + 2, 3)
     _writeBlock(requests, sheetId, [[
         {'stringValue' : 'Total Kills'},
         {'stringValue' : 'Total Deaths'},
@@ -446,6 +450,12 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Wards/Min'}
     ]], ro + 10, 3, [[true, true, true, true, true, true, true, true, true, true]])
 
+    for (let i = 0; i < 5; i++)
+    {
+        _writeCell(requests, sheetId, "", ro + 11 + i, 0, true, true, false, 12)
+        _writeCell(requests, sheetId, riotHelper.getChampionNameByKey(gamesJson.stats.participants[i].championId), ro + 11 + i, 1, true, false, false, 12)
+    }
+
     uev = []
     var numType = []
     for (let i = 0; i < 5; i++)
@@ -453,8 +463,8 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         let participant = gamesJson.stats.participants[i]
 
         let uevRow = [
-            {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
-            {'stringValue' : ''},
+            //{'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
+            //{'stringValue' : ''},
             {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(8+ro,3)},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(2+i+ro,4)},
@@ -469,7 +479,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         uev.push(uevRow)
         numType.push(['NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER'])
     }
-    _writeBlock(requests, sheetId, uev, ro + 11, 1, [], numType)
+    _writeBlock(requests, sheetId, uev, ro + 11, 3, [], numType)
 
     _writeBlock(requests, sheetId, [
         [{'stringValue' : 'Objectives'}, {'stringValue' : ''}],
@@ -496,6 +506,12 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Kills'}
     ]], ro + 1, 20, [[true, true, true, true, true, true, true, true, true, true]])
 
+    for (let i = 0; i < 5; i++)
+    {
+        _writeCell(requests, sheetId, riotHelper.getChampionNameByKey(gamesJson.stats.participants[i + 5].championId), ro + 2 + i, 31, true, false, false, 12)
+        _writeCell(requests, sheetId, "", ro + 2 + i, 32, true, true, false, 12)
+    }
+
     uev = []
     numType = []
     for (let i = 0; i < 5; i++)
@@ -513,8 +529,6 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'numberValue' : participant.stats.assists},
             {'numberValue' : participant.stats.deaths},
             {'numberValue' : participant.stats.kills},
-            {'stringValue' : ''},
-            {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
         ]
         uev.push(uevRow)
     }
@@ -559,6 +573,12 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         {'stringValue' : 'Kill Participation'},
     ]], ro + 10, 20, [[true, true, true, true, true, true, true, true, true, true]])
 
+    for (let i = 0; i < 5; i++)
+    {
+        _writeCell(requests, sheetId, riotHelper.getChampionNameByKey(gamesJson.stats.participants[i + 5].championId), ro + 11 + i, 31, true, false, false, 12)
+        _writeCell(requests, sheetId, "", ro + 11 + i, 32, true, true, false, 12)
+    }
+
     uev = []
     numType = []
     for (let i = 0; i < 5; i++)
@@ -576,8 +596,8 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'formulaValue' : '='+_tsc(2+i+ro,23)+'/'+_tsc(8+ro,28)},
             {'formulaValue' : '='+_tsc(2+i+ro,23)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'formulaValue' : '=('+_tsc(2+i+ro,27)+'+'+_tsc(2+i+ro,29)+')/'+_tsc(8+ro,29)},
-            {'stringValue' : ''},
-            {'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
+            //{'stringValue' : ''},
+            //{'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
         ]
         uev.push(uevRow)
         numType.push(['NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER'])
