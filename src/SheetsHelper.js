@@ -463,8 +463,6 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
         let participant = gamesJson.stats.participants[i]
 
         let uevRow = [
-            //{'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
-            //{'stringValue' : ''},
             {'formulaValue' : '=('+_tsc(2+i+ro,3)+'+'+_tsc(2+i+ro,5)+')/'+_tsc(8+ro,3)},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
             {'formulaValue' : '='+_tsc(2+i+ro,9)+'/'+_tsc(2+i+ro,4)},
@@ -477,7 +475,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             {'formulaValue' : '='+_tsc(2+i+ro,12)+'/(TIMEVALUE('+_tsc(0+ro,9)+')*1440)'},
         ]
         uev.push(uevRow)
-        numType.push(['NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER'])
+        numType.push(['PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER'])
     }
     _writeBlock(requests, sheetId, uev, ro + 11, 3, [], numType)
 
@@ -600,7 +598,7 @@ function _formatTeam(requests, sheetId, ro, gamesJson)
             //{'stringValue' : riotHelper.getChampionNameByKey(participant.championId)},
         ]
         uev.push(uevRow)
-        numType.push(['NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER'])
+        numType.push(['NUMBER', 'PERCENT', 'PERCENT', 'PERCENT', 'PERCENT', 'NUMBER', 'PERCENT', 'NUMBER', 'NUMBER', 'PERCENT'])
     }
     _writeBlock(requests, sheetId, uev, ro + 11, 20, [], numType)
     
